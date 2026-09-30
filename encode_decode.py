@@ -1,5 +1,5 @@
 from hypothesis import given
-from hypothesis.strategies import text
+from hypothesis.strategies import strategies as st
 
 # example taken from Hypothesis quickstart
 # (https://hypothesis.readthedocs.io/en/latest/quickstart.html)
@@ -34,3 +34,9 @@ def decode(lst):
 # We want to know that the decode function is indeed the
 # inverse of the encode function. How would we express this in
 # hypothesis?
+@given(st.text(min_size=23,max_size=200))
+def test_encode_decode(x):
+    assert decode(encode(x)) == x
+
+if __name__ == '__main__':
+    print(encode('AAAAABBBBBBCCCC'))
